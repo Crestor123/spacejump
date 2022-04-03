@@ -8,8 +8,8 @@ signal collectCoin
 signal playerDead
 
 export var speed = 2000
-export var gravity = 30
-export var friction = 0.05
+export var gravity = 40
+export var friction = 0.005
 export var acceleration = 0.5
 
 var velocity = Vector2(0, 0)
@@ -46,7 +46,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
 		velocity.y = lerp(velocity.y, 0, friction)
-	if prevPos != global_position:
+	if prevPos.y != global_position.y:
 		emit_signal("playerHeight", global_position.y)
 	prevPos = global_position
 	velocity.y = velocity.y + (gravity)
@@ -54,10 +54,16 @@ func _physics_process(delta):
 	if collision:
 		var type = collision.collider.get_meta("type")
 		if (type == "wall"):
-			velocity = velocity.bounce(collision.normal)
+			unset_targetPos()
+			print("bounce")
+			print(velocity)
+			velocity = velocity.bounce(collision.normal) / 2
+			print(velocity)
+			#velocity = Vector2(0, 0)
 		if (type == "coin"):
 			collision.collider.die()
 			emit_signal("collectCoin")
-		else:
-			velocity = Vector2(0, 0)
+		#else:
+			#print("here")
+			#velocity = Vector2(0, 0)
 	pass

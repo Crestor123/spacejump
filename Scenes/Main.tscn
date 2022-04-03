@@ -14,14 +14,14 @@
 size = 64
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 7 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 445, 10 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 6000 )
 
 [node name="Main" type="Node2D"]
@@ -40,7 +40,7 @@ margin_top = -1894.72
 margin_right = 1014.96
 margin_bottom = -1818.72
 custom_fonts/font = SubResource( 1 )
-text = "height"
+text = "0"
 align = 2
 autowrap = true
 __meta__ = {
@@ -68,8 +68,8 @@ __meta__ = {
 margin_left = 84.0
 margin_right = 471.0
 margin_bottom = 76.0
-custom_fonts/font = SubResource( 4 )
-text = "Points"
+custom_fonts/font = SubResource( 2 )
+text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -115,19 +115,19 @@ collision_mask = 3
 script = ExtResource( 4 )
 
 [node name="KillfloorCollision" type="CollisionShape2D" parent="Killfloor"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2( 1000, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2( 80, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="CoinSpawner" type="Node" parent="."]
 script = ExtResource( 8 )
