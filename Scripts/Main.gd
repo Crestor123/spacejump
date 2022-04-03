@@ -1,11 +1,16 @@
 extends Node2D
 
+onready var data = get_parent()
+
 onready var heightLabel = $UILayer/Height
 onready var pointsLabel = $UILayer/Points
 onready var nodeSpawner = $NodeSpawner
+onready var coinSpawner = $CoinSpawner
 onready var killfloor = $Killfloor
 onready var leftWall = $LeftWall
 onready var rightWall = $RightWall
+
+onready var replayButton = $UILayer/Replay
 
 var points = 0
 
@@ -13,6 +18,7 @@ var playerInitialHeight = 1770
 var playerMaxHeight = 0
 var playerCurrHeight = 0
 
+var coinFlag = false
 var nodeHeight = 0
 var prevHeight = 0
 
@@ -22,7 +28,11 @@ func _ready():
 	leftWall.set_meta("type", "wall")
 	rightWall.set_meta("type", "wall")
 	pointsLabel.text = str(points)
+	replayButton.visible = false
 	pass 
+
+func _on_Replay_pressed():
+	data.reload()
 
 func collectCoin():
 	#points = int(points + (95 + pow(0.75, intensity) + (5 * intensity)))
@@ -32,8 +42,9 @@ func collectCoin():
 
 func playerDead():
 	print("Game Over")
+	replayButton.visible = true
 	heightLabel.text = "Game Over"
-
+	
 func playerHeightChanged(height):
 	var nodeHeight = 0.0
 	playerCurrHeight = height - playerInitialHeight
@@ -51,10 +62,12 @@ func playerHeightChanged(height):
 			#print("intensity: ", intensity)
 			#print("node Height: ", nodeHeight)
 			spawnNode(nodeHeight * 100)
-			#if nodeHeight % 5 == 0:  #Spawn a node every so often
-				#Calculate offset based on intensity
-				#offset = 0 - (intensity * 300)
-				#spawnNode(nodeHeight * 100, offset)
+			if coinFlag == true:
+				spawnCoin((nodeHeight * 100))
+				coinFlag = false
+			elif coinFlag == false:
+				print("here")
+				coinFlag = true
 	heightLabel.text = str(floor((playerMaxHeight * -1) / 100))
 	pass
 
@@ -62,13 +75,14 @@ func spawnNode(height):
 	nodeSpawner.spawnNode(height)
 	
 func spawnCoin(height):
+	coinSpawner.spawnCoin(height)
 	pass
 
 func moveWalls(height):
-	rightWall.global_position.y = height
-	leftWall.global_position.y = height
+	rightWall.global_position.y = height - 350
+	leftWall.global_position.y = height - 350
 	pass
 
 func moveKillfloor(height):
-	killfloor.global_position.y = height
+	killfloor.global_position.y = height - 350
 	pass

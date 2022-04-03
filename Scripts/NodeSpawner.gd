@@ -12,12 +12,12 @@ func _ready():
 	pass # Replace with function body.
 
 func spawnNode(height):
-	#Pick one or more random positions between 270 and 810 and spawn nodes
+	#Pick one or more random positions between 200 and 900 and spawn nodes
 	var flag = false
 	var rand = 0
 	var spawncount = 1
 	var spawned = 0
-	var probability = 42
+	var probability = 38
 	if prevHeight == height:
 		print("do not spawn")
 		return
