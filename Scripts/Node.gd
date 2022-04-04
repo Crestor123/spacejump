@@ -13,12 +13,12 @@ func _ready():
 	pass
 
 func die():
-	print("destroying node")
+	#print("destroying node")
 	emit_signal("destroyed", global_position)
 	queue_free()
 
 func _on_TouchScreenButton_pressed():
-	print("tap")
+	#print("tap")
 	emit_signal("tapped", global_position)
 	pass 
 

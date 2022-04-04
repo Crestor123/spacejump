@@ -55,10 +55,7 @@ func _physics_process(delta):
 		var type = collision.collider.get_meta("type")
 		if (type == "wall"):
 			unset_targetPos()
-			print("bounce")
-			print(velocity)
 			velocity = velocity.bounce(collision.normal) / 2
-			print(velocity)
 			#velocity = Vector2(0, 0)
 		if (type == "coin"):
 			collision.collider.die()

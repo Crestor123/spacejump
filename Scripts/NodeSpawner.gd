@@ -38,15 +38,15 @@ func spawnNode(height):
 			for child in self.get_children():
 				if abs(child.global_position.y - (height - 125)) <= 20:
 				#if spawned > 0:
-					print("Y: ", child.global_position.y, " ", height - 125)
-					print("X: ", child.global_position.x, " ", rand)
+					#print("Y: ", child.global_position.y, " ", height - 125)
+					#print("X: ", child.global_position.x, " ", rand)
 					if abs(child.global_position.x - rand) <= 250:
 				#if abs(child.global_position.x - rand) <= 200 && child.global_position.y == (height - 125):
-						print("canceled spawn: ", abs(child.global_position.x - rand))
+						#print("canceled spawn: ", abs(child.global_position.x - rand))
 						flag = true
 		spawned = spawned + 1
 		var spawn = nodeObject.instance()
 		add_child(spawn)
-		print("Spawning node: ", height - 125, " ", rand)
+		#print("Spawning node: ", height - 125, " ", rand)
 		spawn.position = (Vector2(rand, height - 125))
 	pass
