@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Node.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Rubik-Bold.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Scripts/CoinSpawner.gd" type="Script" id=8]
 [ext_resource path="res://Objects/Coin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/EnemySpawner.gd" type="Script" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -18,14 +20,14 @@ font_data = ExtResource( 7 )
 size = 64
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 7 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 445, 10 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 10, 6000 )
 
 [node name="Main" type="Node2D"]
@@ -83,7 +85,7 @@ margin_left = 344.0
 margin_top = 960.0
 margin_right = 735.0
 margin_bottom = 1042.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Play Again?"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -125,30 +127,37 @@ editor_draw_drag_margin = true
 
 [node name="Killfloor" type="Area2D" parent="."]
 position = Vector2( 540, 2000 )
-collision_layer = 3
-collision_mask = 3
+collision_mask = 7
 script = ExtResource( 4 )
 
 [node name="KillfloorCollision" type="CollisionShape2D" parent="Killfloor"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2( 1000, 0 )
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2( 80, 0 )
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="CoinSpawner" type="Node" parent="."]
 script = ExtResource( 8 )
 
 [node name="Coin" parent="CoinSpawner" instance=ExtResource( 9 )]
 position = Vector2( 547.099, 540.096 )
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource( 11 )
+
+[node name="Enemy" parent="EnemySpawner" instance=ExtResource( 10 )]
+position = Vector2( 846.898, 835.443 )
 
 [connection signal="pressed" from="UILayer/Replay" to="." method="_on_Replay_pressed"]
 [connection signal="body_entered" from="Killfloor" to="Killfloor" method="_on_Killfloor_body_entered"]

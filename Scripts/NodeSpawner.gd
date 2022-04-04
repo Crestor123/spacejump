@@ -19,7 +19,7 @@ func spawnNode(height):
 	var spawned = 0
 	var probability = 38
 	if prevHeight == height:
-		print("do not spawn")
+		#print("do not spawn")
 		return
 	prevHeight = height
 	
@@ -27,7 +27,7 @@ func spawnNode(height):
 	probability = probability - (gameData.intensity * 2)
 	rand = rng.randi_range(1, 100)
 	if rand < probability: spawncount = 2
-	print("spawncount: ", spawncount)
+	#print("spawncount: ", spawncount)
 	
 	for i in spawncount:
 		flag = true

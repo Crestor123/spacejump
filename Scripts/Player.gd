@@ -60,6 +60,9 @@ func _physics_process(delta):
 		if (type == "coin"):
 			collision.collider.die()
 			emit_signal("collectCoin")
+		if (type == "enemy"):
+			#Take damage, iframes
+			pass
 		#else:
 			#print("here")
 			#velocity = Vector2(0, 0)

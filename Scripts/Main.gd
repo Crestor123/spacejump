@@ -9,6 +9,7 @@ onready var coinSpawner = $CoinSpawner
 onready var killfloor = $Killfloor
 onready var leftWall = $LeftWall
 onready var rightWall = $RightWall
+onready var player = $Player
 
 onready var replayButton = $UILayer/Replay
 
@@ -66,7 +67,7 @@ func playerHeightChanged(height):
 				spawnCoin((nodeHeight * 100))
 				coinFlag = false
 			elif coinFlag == false:
-				print("here")
+				#print("here")
 				coinFlag = true
 	heightLabel.text = str(floor((playerMaxHeight * -1) / 100))
 	pass

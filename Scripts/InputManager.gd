@@ -4,6 +4,7 @@ func _ready():
 	pass # Replace with function body.
 
 signal move_player(position)
+signal move_enemy(position)
 signal stop_move
 
 var nodePos = Vector2(0, 0)
