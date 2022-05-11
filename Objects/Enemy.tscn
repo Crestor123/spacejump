@@ -35,6 +35,10 @@ shape_centered = false
 [node name="StunTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="CollisionTimer" type="Timer" parent="."]
+wait_time = 1.6
+
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="CollisionTimer" to="." method="_on_CollisionTimer_timeout"]

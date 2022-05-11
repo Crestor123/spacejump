@@ -28,7 +28,8 @@ font_data = ExtResource( 7 )
 extents = Vector2( 445, 10 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 10, 6000 )
+custom_solver_bias = 1.0
+extents = Vector2( 6000, 10 )
 
 [node name="Main" type="Node2D"]
 position = Vector2( -1.94141, -1.25681 )
@@ -138,14 +139,19 @@ position = Vector2( 1000, 0 )
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+rotation = 4.71239
 shape = SubResource( 5 )
+one_way_collision = true
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2( 80, 0 )
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2( 1, 0 )
+rotation = 1.5708
 shape = SubResource( 5 )
+one_way_collision = true
 
 [node name="CoinSpawner" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -157,7 +163,11 @@ position = Vector2( 547.099, 540.096 )
 script = ExtResource( 11 )
 
 [node name="Enemy" parent="EnemySpawner" instance=ExtResource( 10 )]
-position = Vector2( 846.898, 835.443 )
+position = Vector2( -20, 863.505 )
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+wait_time = 3.0
 
 [connection signal="pressed" from="UILayer/Replay" to="." method="_on_Replay_pressed"]
 [connection signal="body_entered" from="Killfloor" to="Killfloor" method="_on_Killfloor_body_entered"]
+[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]

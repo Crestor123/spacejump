@@ -1,8 +1,9 @@
 extends Node2D
 
 onready var input = get_tree().get_root().get_node("Game/InputManager")
+var multiplier = 1
 
-signal tapped(position)
+signal tapped(position, multiplier)
 signal released()
 signal destroyed(position)
 
@@ -19,7 +20,7 @@ func die():
 
 func _on_TouchScreenButton_pressed():
 	#print("tap")
-	emit_signal("tapped", global_position)
+	emit_signal("tapped", global_position, multiplier)
 	pass 
 
 func _on_TouchScreenButton_released():

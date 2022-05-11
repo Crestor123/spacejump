@@ -20,7 +20,7 @@ var playerMaxHeight = 0
 var playerCurrHeight = 0
 
 var coinFlag = false
-var nodeHeight = 0
+var nodeHeight = 0.0
 var prevHeight = 0
 
 var intensity = 1
@@ -44,10 +44,9 @@ func collectCoin():
 func playerDead():
 	print("Game Over")
 	replayButton.visible = true
-	heightLabel.text = "Game Over"
 	
 func playerHeightChanged(height):
-	var nodeHeight = 0.0
+	#var nodeHeight = 0.0
 	playerCurrHeight = height - playerInitialHeight
 	if playerMaxHeight > playerCurrHeight:
 		playerMaxHeight = playerCurrHeight

@@ -7,8 +7,9 @@ signal playerHeight(value)
 signal collectCoin
 signal playerDead
 
+export var multiplier = 1
 export var speed = 2000
-export var gravity = 40
+export var gravity = 30
 export var friction = 0.005
 export var acceleration = 0.5
 
@@ -16,10 +17,12 @@ var velocity = Vector2(0, 0)
 var targetPos = Vector2(0, 0)
 var prevPos = Vector2(0, 0)
 
-func set_targetPos(location):
+func set_targetPos(location, multiply = 1):
+	multiplier = multiply
 	targetPos = location
 	
 func unset_targetPos():
+	multiplier = 1
 	targetPos = Vector2(0, 0)
 
 func die():
@@ -39,8 +42,8 @@ func _physics_process(delta):
 		velocity = global_position.direction_to(targetPos)
 		if global_position.y < targetPos.y:
 			velocity *= -1
-		velocity.x = lerp(velocity.x, velocity.x * speed, acceleration)
-		velocity.y = lerp(velocity.y, velocity.y * speed, acceleration)
+		velocity.x = lerp(velocity.x, velocity.x * speed, acceleration * multiplier)
+		velocity.y = lerp(velocity.y, velocity.y * speed, acceleration * multiplier)
 		#velocity *= speed
 		#print(velocity)
 	else:

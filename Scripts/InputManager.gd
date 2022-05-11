@@ -9,11 +9,11 @@ signal stop_move
 
 var nodePos = Vector2(0, 0)
 
-func node_tapped(position):
+func node_tapped(position, multiplier = 1):
 	#print("node pressed:")
 	#print(position)
 	nodePos = position
-	emit_signal("move_player", position)
+	emit_signal("move_player", position, multiplier)
 	pass
 
 func node_released():
