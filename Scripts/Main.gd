@@ -4,6 +4,7 @@ onready var data = get_parent()
 
 onready var heightLabel = $UILayer/Height
 onready var pointsLabel = $UILayer/Points
+onready var healthBar = $UILayer/HealthBar
 onready var nodeSpawner = $NodeSpawner
 onready var coinSpawner = $CoinSpawner
 onready var killfloor = $Killfloor
@@ -12,6 +13,8 @@ onready var rightWall = $RightWall
 onready var player = $Player
 
 onready var replayButton = $UILayer/Replay
+
+var healthUI = preload("res://Objects/HealthUI.tscn")
 
 var points = 0
 
@@ -30,10 +33,28 @@ func _ready():
 	rightWall.set_meta("type", "wall")
 	pointsLabel.text = str(points)
 	replayButton.visible = false
-	pass 
+	
+	for i in player.health:
+		var healthpoint = healthUI.instance()
+		healthBar.add_child(healthpoint)
 
 func _on_Replay_pressed():
 	data.reload()
+
+func playerHealthChanged(value):
+	if value <= 0:
+		#Lose health
+		for i in range((value * -1), 0, -1):
+			healthBar.get_child(healthBar.get_child_count() - 1).queue_free()
+	if value >= 0:
+		#Gain health
+		for i in range(value, 0, -1):
+			var healthpoint = healthUI.instance()
+			healthBar.add_child(healthpoint)
+
+func gainPoints(amount):
+	points += amount
+	pointsLabel.text = str(points)
 
 func collectCoin():
 	#points = int(points + (95 + pow(0.75, intensity) + (5 * intensity)))

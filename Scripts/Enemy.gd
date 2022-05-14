@@ -15,11 +15,15 @@ onready var stunTimer = $StunTimer
 signal tapped(position, multiplier)
 signal released
 signal destroyed(position)
+signal gainPoints(amount)
 
 var velocity = Vector2(0, 0)
 export var speed = 400
 export var acceleration = 0.5
 export var friction = 0.1
+
+export var points = 1
+export var health = 1
 
 var nodePosition = Vector2(0, 0)
 #var spawned = true
@@ -33,6 +37,7 @@ func _ready():
 	connect("tapped", input, "node_tapped")
 	connect("released", input, "node_released")
 	connect("destroyed", input, "node_destroyed")
+	connect("gainPoints", spawner, "gainPoints")
 	pass # Replace with function body.
 	
 func spawn():
@@ -41,6 +46,8 @@ func spawn():
 	pass
 	
 func die():
+	if tapped == true or stunned == true:
+		emit_signal("gainPoints", points)
 	tapped = false
 	emit_signal("destroyed", nodePosition)
 	queue_free()
@@ -98,7 +105,3 @@ func _physics_process(delta):
 
 func _on_Timer_timeout():
 	stunned = false
-
-#func _on_CollisionTimer_timeout():
-	#spawned = false
-	#collision.disabled = false

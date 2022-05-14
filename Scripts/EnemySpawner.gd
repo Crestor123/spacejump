@@ -14,7 +14,6 @@ func _ready():
 	pass
 
 func spawnEnemy():
-	print("spawning enemy ?")
 	#Spawn rate is based on intensity
 	#The spawn position should be either x = 1100 or -20, y random based on maxheight
 	
@@ -23,7 +22,6 @@ func spawnEnemy():
 	
 	rand = rng.randi_range(1, 100)
 	if rand < probability + (gameData.intensity * 2):
-		print("spawning enemy")
 		#spawn an enemy
 		spawn = enemyObject.instance()
 		add_child(spawn)
@@ -36,6 +34,9 @@ func spawnEnemy():
 			spawn.position = Vector2(1100, (gameData.nodeHeight * 100) + 1000)
 		print(spawn.position)
 	pass
+
+func gainPoints(amount):
+	gameData.gainPoints(amount)
 
 func _on_Timer_timeout():
 	if gameData.playerMaxHeight < -11770:

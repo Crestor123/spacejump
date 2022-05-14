@@ -2,10 +2,15 @@ extends KinematicBody2D
 
 onready var gameData = get_parent()
 onready var input = get_tree().get_root().get_node("Game/InputManager")
+onready var invulnTimer = $InvulnTimer
 
 signal playerHeight(value)
 signal collectCoin
 signal playerDead
+signal playerHealthChanged(value)
+
+export var health = 3
+var invulnerable = false
 
 export var multiplier = 1
 export var speed = 2000
@@ -25,6 +30,17 @@ func unset_targetPos():
 	multiplier = 1
 	targetPos = Vector2(0, 0)
 
+func damage():
+	if invulnerable == false:
+		print(health)
+		health = health - 1
+		emit_signal("playerHealthChanged", -1)
+		if health <= 0:
+			die()
+		invulnerable = true
+		invulnTimer.start()
+	
+
 func die():
 	emit_signal("playerDead")
 	set_physics_process(false)
@@ -35,6 +51,7 @@ func _ready():
 	connect("playerHeight", gameData, "playerHeightChanged")
 	connect("initalHeight", gameData, "setinitalHeight")
 	connect("collectCoin", gameData, "collectCoin")
+	connect("playerHealthChanged", gameData, "playerHealthChanged")
 	connect("playerDead", gameData, "playerDead")
 
 func _physics_process(delta):
@@ -64,9 +81,12 @@ func _physics_process(delta):
 			collision.collider.die()
 			emit_signal("collectCoin")
 		if (type == "enemy"):
-			#Take damage, iframes
-			pass
+				damage()
 		#else:
 			#print("here")
 			#velocity = Vector2(0, 0)
 	pass
+
+func _on_InvulnTimer_timeout():
+	invulnerable = false
+	pass 

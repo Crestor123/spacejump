@@ -21,3 +21,7 @@ visible = false
 position = Vector2( -5.72205e-06, -10 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 1 )
+
+[node name="InvulnTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
